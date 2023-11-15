@@ -1,87 +1,87 @@
 #include "shell.h"
 
 /**
- * str_copy - copies a string
- * @destination: the destination
- * @source: the source
+ * _strcpy - copies a string
+ * @dest: the destination
+ * @src: the source
  *
  * Return: pointer to destination
  */
-char *str_copy(char *destination, char *source)
+char *_strcpy(char *dest, char *src)
 {
-	int index = 0;
+	int i = 0;
 
-	if (destination == source || source == 0)
-		return (destination);
-	while (source[index])
+	if (dest == src || src == 0)
+		return (dest);
+	while (src[i])
 	{
-		destination[index] = source[index];
-		index++;
+		dest[i] = src[i];
+		i++;
 	}
-	destination[index] = 0;
-	return (destination);
+	dest[i] = 0;
+	return (dest);
 }
 
 /**
- * str_duplicate - duplicates a string
- * @str_to_duplicate: the string to duplicate
+ * _strdup - duplicates a string
+ * @str: the string to duplicate
  *
  * Return: pointer to the duplicated string
  */
-char *str_duplicate(const char *str_to_duplicate)
+char *_strdup(const char *str)
 {
 	int length = 0;
-	char *result;
+	char *ret;
 
-	if (str_to_duplicate == NULL)
+	if (str == NULL)
 		return (NULL);
-	while (*str_to_duplicate++)
+	while (*str++)
 		length++;
-	result = malloc(sizeof(char) * (length + 1));
-	if (!result)
+	ret = malloc(sizeof(char) * (length + 1));
+	if (!ret)
 		return (NULL);
 	for (length++; length--;)
-		result[length] = *--str_to_duplicate;
-	return (result);
+		ret[length] = *--str;
+	return (ret);
 }
 
 /**
- * put_string - prints an input string
+ * _puts - prints an input string
  * @str: the string to be printed
  *
  * Return: Nothing
  */
-void put_string(char *str)
+void _puts(char *str)
 {
-	int index = 0;
+	int i = 0;
 
 	if (!str)
 		return;
-	while (str[index] != '\0')
+	while (str[i] != '\0')
 	{
-		put_character(str[index]);
-		index++;
+		_putchar(str[i]);
+		i++;
 	}
 }
 
 /**
- * put_character - writes the character c to stdout
+ * _putchar - writes the character c to stdout
  * @c: The character to print
  *
  * Return: On success 1.
  * On error, -1 is returned, and errno is set appropriately.
  */
-int put_character(char character)
+int _putchar(char c)
 {
-	static int index;
-	static char buffer[WRITE_BUF_SIZE];
+	static int i;
+	static char buf[WRITE_BUF_SIZE];
 
-	if (character == BUF_FLUSH || index >= WRITE_BUF_SIZE)
+	if (c == BUF_FLUSH || i >= WRITE_BUF_SIZE)
 	{
-		write(1, buffer, index);
-		index = 0;
+		write(1, buf, i);
+		i = 0;
 	}
-	if (character != BUF_FLUSH)
-		buffer[index++] = character;
+	if (c != BUF_FLUSH)
+		buf[i++] = c;
 	return (1);
 }
